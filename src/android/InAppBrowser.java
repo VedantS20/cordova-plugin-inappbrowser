@@ -119,7 +119,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String BEFORELOAD = "beforeload";
     private static final String FULLSCREEN = "fullscreen";
 
-    private static final int TOOLBAR_HEIGHT = 48;
+    private static final int TOOLBAR_HEIGHT = 58;
 
     private static final List customizableOptions = Arrays.asList(CLOSE_BUTTON_CAPTION, TOOLBAR_COLOR, NAVIGATION_COLOR, CLOSE_BUTTON_COLOR, FOOTER_COLOR);
 
@@ -142,6 +142,7 @@ public class InAppBrowser extends CordovaPlugin {
     private String closeButtonColor = "";
     private boolean leftToRight = false;
     private int toolbarColor = android.graphics.Color.WHITE;
+    private int toolbarUrlColor = android.graphics.Color.BLACK;
     private boolean hideNavigationButtons = false;
     private String navigationButtonColor = "";
     private boolean hideUrlBar = false;
@@ -604,6 +605,7 @@ public class InAppBrowser extends CordovaPlugin {
             this.inAppWebView.loadUrl("http://" + url);
         } else {
             this.inAppWebView.loadUrl(url);
+            //here
         }
         this.inAppWebView.requestFocus();
     }
@@ -877,6 +879,7 @@ public class InAppBrowser extends CordovaPlugin {
                 edittext.setId(Integer.valueOf(4));
                 edittext.setSingleLine(true);
                 edittext.setText(url);
+                edittext.setTextColor(toolbarUrlColor)
                 edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
                 edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
                 edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
