@@ -844,7 +844,7 @@ BOOL isExiting = FALSE;
     }
     
     
-    self.backButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.toolbar.bounds.size.width-30, 55, self.toolbar.bounds.size.width, 40)];
+    self.backButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.toolbar.bounds.size.width-30, self.toolbar.bounds.size.height/2 - 30, self.toolbar.bounds.size.width, 40)];
 //    [_titleLabel setFont:[UIFont systemFontOfSize:14]];
     [_backButtonLabel setFont:[UIFont boldSystemFontOfSize:40]];
     NSLog(@"TitleLabel Toolbar Size %f and Label Size %f", self.view.bounds.size.width,self.titleLabel.intrinsicContentSize.width);
@@ -869,7 +869,8 @@ BOOL isExiting = FALSE;
     self.titleLabel.textColor = [UIColor blackColor]; // Set the text color
     self.titleLabel.text = _browserOptions.title;
     CGFloat titleLabelLabelX = self.toolbar.bounds.size.width/2 - self.titleLabel.intrinsicContentSize.width/2;
-    self.titleLabel.frame = CGRectMake(titleLabelLabelX, 70, self.toolbar.bounds.size.width, 20);
+    CGFloat titleLabelY = self.toolbar.bounds.size.height/2-self.titleLabel.bounds.size.height;
+    self.titleLabel.frame = CGRectMake(titleLabelLabelX, titleLabelY, self.toolbar.bounds.size.width, 20);
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:self.titleLabel];
     
     
@@ -879,8 +880,9 @@ BOOL isExiting = FALSE;
     self.siteUrl.textColor = [UIColor blackColor]; // Set the text color
     self.siteUrl.text = @"Loading...";
     CGFloat siteUrlLabelX = self.toolbar.bounds.size.width/2 - self.siteUrl.bounds.size.width/2;
+    CGFloat siteUrlLabelY = self.toolbar.bounds.size.height/2;
     NSLog(@"Site Url label x %f",siteUrlLabelX);
-    self.siteUrl.frame = CGRectMake(siteUrlLabelX, 88, self.toolbar.bounds.size.width, 20);
+    self.siteUrl.frame = CGRectMake(siteUrlLabelX, siteUrlLabelY, self.toolbar.bounds.size.width, 20);
     NSLog(@"SiteUrl Toolbar Size %f and Label Size %f",self.toolbar.bounds.size.width,self.siteUrl.intrinsicContentSize.width);
     UIBarButtonItem *siteUrlItem = [[UIBarButtonItem alloc] initWithCustomView:self.siteUrl];
     
@@ -902,15 +904,13 @@ BOOL isExiting = FALSE;
 //    [self.toolbar setItems:@[siteUrlItem,flexibleSpaceButton]];
 //    [self.toolbar setItems:@[titleItem,flexibleSpaceButton]];
 //
-//    [self.toolbar setItems:@[siteUrlItem, titleItem]];
-    
+    [self.toolbar addSubview:self.siteUrl];
+    [self.toolbar addSubview:self.titleLabel];
+    [self.toolbar addSubview:self.backButtonLabel];
     
     
     self.view.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.toolbar];
-    [self.view addSubview:self.backButtonLabel];
-    [self.view addSubview:self.siteUrl];
-    [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.spinner];
 }
 
@@ -1211,8 +1211,9 @@ BOOL isExiting = FALSE;
     self.addressLabel.text = [self.currentURL absoluteString];
     self.siteUrl.text =  [self.currentURL absoluteString];
     CGFloat siteUrlLabelX = self.toolbar.bounds.size.width/2 - self.siteUrl.bounds.size.width/2;
+    CGFloat siteUrlLabelY = self.toolbar.bounds.size.height/2;
     NSLog(@"Site Url label x %f",siteUrlLabelX);
-    self.siteUrl.frame = CGRectMake(siteUrlLabelX, 88, self.toolbar.bounds.size.width, 20);
+    self.siteUrl.frame = CGRectMake(siteUrlLabelX, siteUrlLabelY, self.toolbar.bounds.size.width, 20);
     NSLog(@"%@ current URL %@",self.currentURL,_browserOptions.title);
     self.backButton.enabled = theWebView.canGoBack;
     self.forwardButton.enabled = theWebView.canGoForward;
